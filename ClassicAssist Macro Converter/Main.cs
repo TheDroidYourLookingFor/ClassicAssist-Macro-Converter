@@ -46,6 +46,7 @@ namespace ClassicAssist_Macro_Converter
         public void ParseText()
         {
             ReplaceTxt("@", "", RegexOptions.IgnoreCase, rtb_CurrentFile, rtb_ModedFile);
+            ReplaceTxt("!\\s", " ", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
             ReplaceTxt("//", "#", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
             ReplaceTxt("stop", "Stop()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
             ReplaceTxt("weight", "Weight()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
@@ -191,10 +192,6 @@ namespace ClassicAssist_Macro_Converter
             regex = new Regex("yellowhits (.*)", RegexOptions.IgnoreCase);
             cleanString = regex.Replace(rtb_ModedFile.Text, "YellowHits($1)");
             rtb_ModedFile.Text = cleanString;
-            ReplaceTxt("maxmana", "MaxMana()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
-            ReplaceTxt("maxhits", "MaxHits()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
-            ReplaceTxt("mana", "Mana()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
-            ReplaceTxt("hits", "Hits()", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
 
             //TargetExists(serial)
             regex = new Regex("targetexists (.*)", RegexOptions.IgnoreCase);
@@ -499,6 +496,9 @@ namespace ClassicAssist_Macro_Converter
             regex = new Regex("usetype (.*) (.*) (.*)", RegexOptions.IgnoreCase);
             cleanString = regex.Replace(rtb_ModedFile.Text, "UseType($1, $2, $3)");
             rtb_ModedFile.Text = cleanString;
+            regex = new Regex("usetype (.*)", RegexOptions.IgnoreCase);
+            cleanString = regex.Replace(rtb_ModedFile.Text, "UseType($1)");
+            rtb_ModedFile.Text = cleanString;
 
             //MoveType(serial, source, destination, x, y, z, hue, amount)
             regex = new Regex("movetype (.*) (.*) (.*) (.*) (.*) (.*) (.*)", RegexOptions.IgnoreCase);
@@ -672,10 +672,6 @@ namespace ClassicAssist_Macro_Converter
             cleanString = regex.Replace(rtb_ModedFile.Text, "ReplyGump($1)");
             rtb_ModedFile.Text = cleanString;
 
-            regex = new Regex("if (.*)", RegexOptions.IgnoreCase);
-            cleanString = regex.Replace(rtb_ModedFile.Text, "if $1:");
-            rtb_ModedFile.Text = cleanString;
-
             regex = new Regex("waitforjournal (.*) (.*) (.*)", RegexOptions.IgnoreCase);
             cleanString = regex.Replace(rtb_ModedFile.Text, "WaitForJournal($1, $2, $3)");
             rtb_ModedFile.Text = cleanString;
@@ -723,6 +719,16 @@ namespace ClassicAssist_Macro_Converter
             regex = new Regex("timer (.*)", RegexOptions.IgnoreCase);
             cleanString = regex.Replace(rtb_ModedFile.Text, "Timer($1)");
             rtb_ModedFile.Text = cleanString;
+
+            ReplaceTxt("maxmana (.*)", "MaxMana($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("maxhits (.*)", "MaxHits($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("maxstam (.*)", "MaxStam($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("mana (.*)", "Mana($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("diffhits ('(?:[^']|'')*')", "DiffHits($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("diffhits ", "DiffHits() ", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("hits (.*)", "Hits($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("stam (.*)", "Stam($1)", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
+            ReplaceTxt("if (.*)", "if $1:", RegexOptions.IgnoreCase, rtb_ModedFile, rtb_ModedFile);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
